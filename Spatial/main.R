@@ -9,11 +9,12 @@ library("ggplot2")
 library("leaflet.extras")
 
 ##### ------ Definition path: Data------ #####
-path = 'data/'
+setwd("~/HASS_Summer_School/spatial_data")
+
 
 ################ ---------------- Part 1: Operations with geospatial data -------------- ####################
 #### ------- Geospatial operations
-AustraliaStates = read_sf(paste0(path,"ste_2016_aust.gml"))
+AustraliaStates = read_sf("data/ste_2016_aust.gml")
 ###### ------ Set CRS: Identify the CRS ------ ######
 AustraliaStates = AustraliaStates %>% st_set_crs(4283) 
 AustraliaStates = AustraliaStates[,c('state_name_2016','geometry')]
@@ -79,7 +80,7 @@ dev.off()
 rm(list=setdiff(ls(),c('path')))
 #### --------- Work with Geospatial data ------- ####
 ### ---- Read the data ---- ####
-Education = readRDS(paste0(path,"education.rds"))
+Education = readRDS("data/education.rds")
 #### --- Inspect the data --- ####
 head(Education)
 
@@ -95,7 +96,7 @@ head(Education)
 
 ########### ---------- Geolocate: Join: ID ---------- #########
 ##### ---------- LGA information ------ #######
-LGA = readRDS(paste0(path,'/lga.rds'))
+LGA = readRDS('data/lga.rds')
 ##### ---------- Transform ------ #######
 LGA = LGA %>% st_set_crs(4283) 
 LGA$geometry = st_transform(LGA$geometry, 4326)
@@ -137,7 +138,7 @@ Education[Education$lga_name=='Ballarat (C)',]
 
 ####### ------- SEIFA ------ ######
 ### ---- Read the data ---- ####
-SEIFA = readRDS(paste0(path,'/seifa.rds'))
+SEIFA = readRDS('data/seifa.rds')
 ##### ---------- transform ------ #######
 SEIFA$geometry = st_transform(SEIFA$geometry, 4326)
 #### -------- Filter: Victoria ----- ####
